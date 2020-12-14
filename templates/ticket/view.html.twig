@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello TicketController!{% endblock %}
+
+{% block body %}
+<style>
+    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+</style>
+
+<div class="example-wrapper">
+    <h1>{{ ticket.title }}! ✅</h1>
+
+    <p>{{ ticket.description }}</p>
+    <p>categorie : {{ ticket.category.title}}</p>
+
+    <h3>Users</h3>
+    <ul>
+        {% for user in ticket.users %}
+            <li>{{ user.username }}</li>
+        {% endfor %}
+    </ul>
+
+</div>
+{% endblock %}

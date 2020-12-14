@@ -11,6 +11,13 @@
 <div class="example-wrapper">
     <h1>Hello {{ controller_name }}! ✅</h1>
 
+    <ul>
+        {% for ticket in tickets %}
+            <li><a href="{{ path('ticket.view', {id: ticket.id}) }}">{{ ticket.title }}</a></li>
+        {% endfor %}
+    </ul>
+
+
     This friendly message is coming from:
     <ul>
         <li>Your controller at <code><a href="{{ '/Users/geoffroycochard/Public/web/universite/licence_pro/2020/td3_lp1/src/Controller/TicketController.php'|file_link(0) }}">src/Controller/TicketController.php</a></code></li>

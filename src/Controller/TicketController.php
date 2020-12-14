@@ -16,8 +16,24 @@ class TicketController extends AbstractController
      */
     public function index(): Response
     {
+        $tickets = $this->getDoctrine()->getRepository(Ticket::class)
+            ->findAll();
         return $this->render('ticket/index.html.twig', [
             'controller_name' => 'TicketController',
+            'tickets' => $tickets
+        ]);
+    }
+
+    /**
+     * @param Ticket $ticket
+     * @return Response
+     *
+     * @Route("/{id}/view", name="ticket.view")
+     */
+    public function view(Ticket $ticket): Response
+    {
+        return $this->render('ticket/view.html.twig', [
+            'ticket' => $ticket
         ]);
     }
 
