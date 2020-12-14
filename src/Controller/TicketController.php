@@ -8,6 +8,7 @@ use App\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class TicketController extends AbstractController
 {
@@ -90,5 +91,23 @@ class TicketController extends AbstractController
         $em->flush();
 
         return new Response('created');
+    }
+
+    /**
+     * @Route("/create-user")
+     */
+    public function createUser(ValidatorInterface $validator)
+    {
+        $user = (new User());
+
+        $violations = $validator->validate($user);
+        dump($violations->count());
+        die();
+        $em = $this->getDoctrine()->getManager();
+
+        $em->persist($user);
+        $em->flush();
+
+        die();
     }
 }
