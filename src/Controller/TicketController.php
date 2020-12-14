@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Category;
 use App\Entity\Ticket;
+use App\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -43,5 +44,35 @@ class TicketController extends AbstractController
         die();
         return new Response('created');
 
+    }
+
+    /**
+     * @return Response
+     *
+     * @Route("/create-users-tickets")
+     */
+    public function createUserAndAssignToTickets(): Response
+    {
+        // User creation
+        $users = [];
+        $em = $this->getDoctrine()->getManager();
+        foreach (['geoffroycochard', 'bot'] as $username) {
+            $users[] = $user = (new User())->setUsername($username);
+            $em->persist($user);
+        }
+        $em->flush();
+
+        // Assign to tickets
+        $tickets = $this->getDoctrine()->getRepository(Ticket::class)
+            ->findAll();
+        /** @var Ticket $ticket */
+        foreach ($tickets as $ticket) {
+            foreach ($users as $user) {
+                $ticket->addUser($user);
+            }
+        }
+        $em->flush();
+
+        return new Response('created');
     }
 }
