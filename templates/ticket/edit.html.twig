@@ -9,15 +9,13 @@
 </style>
 
 <div class="example-wrapper">
-    <h1>{{ ticket.title }}! ✅</h1>
-    <p>{{ ticket.description }}</p>
-    <p>{{ ticket.category.title }}</p>
 
-    <ul>
-        {% for user in ticket.users %}
-            <li>{{ user.username }}</li>
-        {% endfor %}
-    </ul>
+    {{ form_start(form) }}
+    {{ form_widget(form) }}
+    <input type="submit" value="GO ✅">
+    {{ form_end(form) }}
+
+
 
 </div>
 {% endblock %}
